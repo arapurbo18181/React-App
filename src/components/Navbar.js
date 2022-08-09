@@ -1,9 +1,11 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export default function Navbar(props) {
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
+    <nav
+      className={`navbar navbar-${props.modes} navbar-expand-lg bg-${props.modes}`}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
@@ -32,17 +34,22 @@ export default function Navbar(props) {
               </a>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+          <button
+            className="btn text-white bg-dark"
+            type="submit"
+            onClick={props.togglemode1}
+            style={props.mystyle1}
+          >
+            Enable Dark mode
+          </button>
+          <button
+            className="btn text-dark bg-light"
+            type="submit"
+            onClick={props.togglemode2}
+            style={props.mystyle2}
+          >
+            Enable Light mode
+          </button>
         </div>
       </div>
     </nav>
@@ -50,11 +57,13 @@ export default function Navbar(props) {
 }
 
 Navbar.propTypes = {
-    title : PropTypes.string.isRequired,
-    about : PropTypes.string.isRequired                    
-}
+  title: PropTypes.string.isRequired,
+  about: PropTypes.string.isRequired,
+  modes: PropTypes.string.isRequired,
+};
 
 Navbar.defaultProps = {
-    title : "set title here",
-    about : "set about here"
-}
+  title: "set title here",
+  about: "set about here",
+  modes: "set mode",
+};
