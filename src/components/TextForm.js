@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default function TextForm(props) {
   const handleUpClick = () => {
-    if (text.length > 0 && typeof text === String) {
+    if (text.length > 0) {
       let newtext = text.toUpperCase();
       setText(newtext);
       props.showAlert("converted to Uppercase", "success");
@@ -12,7 +12,7 @@ export default function TextForm(props) {
     }
   };
   const handleLowerClick = () => {
-    if (text.length > 0 && typeof text === String) {
+    if (text.length > 0) {
       let newtext = text.toLowerCase();
       setText(newtext);
       props.showAlert("converted to Lowercase", "success");
@@ -24,8 +24,12 @@ export default function TextForm(props) {
     setText(event.target.value);
   };
   const handleClear = () => {
-    setText("");
-    props.showAlert("Text cleared", "success");
+    if (text.length > 0) {
+      setText("");
+      props.showAlert("Text cleared", "success");
+    } else {
+      props.showAlert("Please enter text first", "warning");
+    }
   };
   const [text, setText] = useState("");
   return (
@@ -77,7 +81,7 @@ export default function TextForm(props) {
       >
         <h2>Your text summary</h2>
         <p>
-          {text.split(" ").filter((element) => element.length !== 0).length}{" "}
+          {text.split(/\s+/).filter((element) => element.length !== 0).length}{" "}
           Words and {text.length} Characters
         </p>
         <p> {0.008 * text.split(" ").filter((element) => element.length !== 0).length} Minutes read</p>
